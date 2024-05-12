@@ -6,8 +6,6 @@ pool:
   name: default
 
 variables:
-  majorVersion: '1'
-  minorVersion: '0'
   artifactVersion: ''
 
 steps:
@@ -19,8 +17,8 @@ steps:
 
 
 - script: |
-    major_version=${env:majorVersion}
-    minor_version=${env:minorVersion}
+    major_version=1
+    minor_version=0
     build_number=$(Build.BuildNumber)
     new_version="$major_version.$minor_version.$build_number"
     echo "New artifact version: $new_version"
