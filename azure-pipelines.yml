@@ -25,5 +25,5 @@ steps:
     artifactVersion="$new_version"
   displayName: 'Increment Version (Bash)'
 
-- script: dotnet pack MyProject.csproj -o $(Build.ArtifactStagingDirectory) --version $(Build.BuildNumber)
+- script: dotnet pack -o $(Build.ArtifactStagingDirectory) --version $(Build.BuildNumber)
   displayName: 'Create NuGet Package'
