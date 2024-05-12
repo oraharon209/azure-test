@@ -8,7 +8,9 @@ pool:
   name: default
 
 variables:
-  artifactVersion: '1.0.0'  # Initial version
+  majorVersion: '1'
+  minorVersion: '0'
+  artifactVersion: ''
 
 steps:
 - checkout: self
@@ -17,12 +19,11 @@ steps:
 - script: dotnet build
   displayName: 'Build the artifact'
 
-# Removed the optional PowerShell script (not compatible with bash)
 
-- script: |  # Bash script for version manipulation
-    major_version=${env:MajorVersion}  # Use lower case for variable names
+- script: |
+    major_version=${env:MajorVersion}
     minor_version=${env:MinorVersion}
-    build_number=$(Build.BuildNumber)  # Use $( ) for pre-defined variables
+    build_number=$(Build.BuildNumber)
     new_version="$major_version.$minor_version.$build_number"
     echo "New artifact version: $new_version"
     artifactVersion="$new_version"
