@@ -25,7 +25,7 @@ steps:
     artifactVersion="$new_version"
   displayName: 'Increment Version (Bash)'
 
-- script: dotnet pack --version $(Build.BuildNumber)
+- script: dotnet pack -p Version=1.0.$(Build.BuildNumber)
   displayName: 'Create NuGet Package'
 
 - script: dotnet nuget push --source "hello_world" --api-key az /home/or/azure_devops/azure-test/bin/Release/ConsoleApp1.1.0.$(Build.BuildNumber).nupkg

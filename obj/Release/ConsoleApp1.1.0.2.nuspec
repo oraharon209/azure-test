@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>ConsoleApp1</id>
+    <version>1.0.2</version>
+    <authors>ConsoleApp1</authors>
+    <description>Package Description</description>
+    <repository type="git" commit="c60a052084652e36bd01aa515c65b42dac3f05f9" />
+    <dependencies>
+      <group targetFramework="net8.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="/home/or/azure_devops/azure-test/bin/Release/net8.0/ConsoleApp1.runtimeconfig.json" target="lib/net8.0/ConsoleApp1.runtimeconfig.json" />
+    <file src="/home/or/azure_devops/azure-test/bin/Release/net8.0/ConsoleApp1.dll" target="lib/net8.0/ConsoleApp1.dll" />
+  </files>
+</package>
