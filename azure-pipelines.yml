@@ -31,6 +31,4 @@ steps:
 - publish: $(Build.ArtifactStagingDirectory)/**/*.nupkg
   displayName: 'Publish NuGet Package'
   artifact: hello_world  # Replace with your feed name
-  source: $(System.DefaultWorkingDirectory)  # Defaults to current directory
-  tool: nuget  # Specifies the tool (nuget) for publishing
   condition: always()
