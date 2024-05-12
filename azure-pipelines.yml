@@ -28,7 +28,7 @@ steps:
 - script: dotnet pack --version $(Build.BuildNumber)
   displayName: 'Create NuGet Package'
 
-- script: dotnet nuget push --source "hello_world" --api-key az /home/or/azure_devops/azure-test/bin/Release/*.nupkg
+- script: dotnet nuget push --source "hello_world" --api-key az /home/or/azure_devops/azure-test/bin/Release/ConsoleApp1.1.0.$(Build.BuildNumber).nupkg
   displayName: 'publish NuGet Package'
 #- publish: $(Build.ArtifactStagingDirectory)/bin/Release/*.nupkg
 #  displayName: 'Publish NuGet Package'
