@@ -14,4 +14,8 @@ steps:
 - checkout: self
   clean: true
 
+- script: dotnet build
+  displayName: 'build the artifact'
 
+- publish: $(System.DefaultWorkingDirectory)/bin/Debug/net8.0/ConsoleApp1.dll
+  artifact: hellowrold
