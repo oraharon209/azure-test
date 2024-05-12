@@ -1,14 +1,13 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
 - main
 
 pool:
   vmImage: ubuntu-latest
   name: default
+
+variables:
+  artifactVersion: '1.0.0'
+
 
 steps:
 - checkout: self
@@ -17,5 +16,14 @@ steps:
 - script: dotnet build
   displayName: 'build the artifact'
 
-- publish: $(System.DefaultWorkingDirectory)/bin/Debug/net8.0/ConsoleApp1.dll
-  artifact: hellowrold
+- script: |  # Optional script for version manipulation (powershell@3)
+    $majorVersion = "${env:MajorVersion}"
+    $minorVersion = "${env:MinorVersion}"
+    $buildNumber = $(Build.BuildNumber)
+    $newVersion = "$majorVersion.$minorVersion.$buildNumber"
+    Write-Host "New artifact version: $newVersion"
+    $artifactVersion = $newVersion
+  displayName: 'Increment Version (Optional)'
+
+- publish: $(System.DefaultWorkingDirectory)/bin/Debug/net8.0/$(artifactVersion)/ConsoleApp1.dll
+  artifact: helloworld
