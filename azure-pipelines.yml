@@ -28,7 +28,7 @@ steps:
 - script: dotnet pack -o $(Build.ArtifactStagingDirectory) --version $(Build.BuildNumber)
   displayName: 'Create NuGet Package'
 
-- publish: $(Build.ArtifactStagingDirectory)/**/*.nupkg
+- publish: $(Build.ArtifactStagingDirectory)/bin/Release/*.nupkg
   displayName: 'Publish NuGet Package'
   artifact: hello_world  # Replace with your feed name
   condition: always()
