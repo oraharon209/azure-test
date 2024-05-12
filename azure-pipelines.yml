@@ -19,8 +19,8 @@ steps:
 
 
 - script: |
-    major_version=${env:MajorVersion}
-    minor_version=${env:MinorVersion}
+    major_version=${env:majorVersion}
+    minor_version=${env:minorVersion}
     build_number=$(Build.BuildNumber)
     new_version="$major_version.$minor_version.$build_number"
     echo "New artifact version: $new_version"
