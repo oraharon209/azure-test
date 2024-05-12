@@ -1,3 +1,5 @@
+# azure-pipelines.yml
+
 trigger:
 - main
 
@@ -6,24 +8,25 @@ pool:
   name: default
 
 variables:
-  artifactVersion: '1.0.0'
-
+  artifactVersion: '1.0.0'  # Initial version
 
 steps:
 - checkout: self
   clean: true
 
 - script: dotnet build
-  displayName: 'build the artifact'
+  displayName: 'Build the artifact'
 
-- script: |  # Optional script for version manipulation (powershell@3)
-    $majorVersion = "${env:MajorVersion}"
-    $minorVersion = "${env:MinorVersion}"
-    $buildNumber = $(Build.BuildNumber)
-    $newVersion = "$majorVersion.$minorVersion.$buildNumber"
-    Write-Host "New artifact version: $newVersion"
-    $artifactVersion = $newVersion
-  displayName: 'Increment Version (Optional)'
+# Removed the optional PowerShell script (not compatible with bash)
 
-- publish: $(System.DefaultWorkingDirectory)/bin/Debug/net8.0/$(artifactVersion)/ConsoleApp1.dll
+- script: |  # Bash script for version manipulation
+    major_version=${env:MajorVersion}  # Use lower case for variable names
+    minor_version=${env:MinorVersion}
+    build_number=$(Build.BuildNumber)  # Use $( ) for pre-defined variables
+    new_version="$major_version.$minor_version.$build_number"
+    echo "New artifact version: $new_version"
+    artifactVersion="$new_version"
+  displayName: 'Increment Version (Bash)'
+
+- publish: $(System.DefaultWorkingDirectory)/bin/Debug/net8.0/$artifactVersion/ConsoleApp1.dll
   artifact: helloworld
