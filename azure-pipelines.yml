@@ -9,7 +9,7 @@ steps:
 # Prepare Analysis Configuration task
 - task: SonarQubePrepare@5
   inputs:
-    SonarQube: 'http://localhost:9000'
+    SonarQube: 'http://127.0.0.1:9000'
     scannerMode: 'MSBuild'
     projectKey: 'firstproj_firstproj_538b5c36-e25a-4d40-af2a-589005a19f5c'
 
