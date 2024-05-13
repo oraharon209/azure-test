@@ -6,7 +6,7 @@ stages:
 - stage: build
   jobs:
   - job: build
-    condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+    condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
     
     steps:
 
