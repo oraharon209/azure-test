@@ -5,8 +5,8 @@ pool:
 stages:
 - stage: build
   jobs:
-  - job: pack_publish
-    condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
+  - job: build
+    condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
     
     steps:
 
