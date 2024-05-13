@@ -2,6 +2,10 @@ trigger:
 - master # or the name of your main branch
 - feature/*
 
+pool:
+  vmImage: ubuntu-latest
+  name: default
+
 steps:
 # Checkout the repository 
 - checkout: self
