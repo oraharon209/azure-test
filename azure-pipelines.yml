@@ -9,9 +9,9 @@ steps:
 # Prepare Analysis Configuration task
 - task: SonarQubePrepare@5
   inputs:
-    SonarQube: 'YourSonarqubeServerEndpoint'
+    SonarQube: 'http://localhost:9000'
     scannerMode: 'MSBuild'
-    projectKey: 'YourProjectKey'
+    projectKey: 'firstproj_firstproj_538b5c36-e25a-4d40-af2a-589005a19f5c'
 
 # Dotnet build task
 - task: DotNetCoreCLI@2
