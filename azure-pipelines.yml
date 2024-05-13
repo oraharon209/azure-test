@@ -12,7 +12,7 @@ steps:
 - checkout: self
   clean: true
 
-- script: dotnet build
+- script: dotnet build /p:GenerateAssemblyInfo=false
   displayName: 'Build the artifact'
 
 - script: |
