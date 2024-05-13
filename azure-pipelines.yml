@@ -23,9 +23,9 @@ stages:
     - script: dotnet nuget push --source "hello_world" --api-key az $(System.DefaultWorkingDirectory)/bin/Release/ConsoleApp1.1.0.$(Build.BuildId).nupkg
       displayName: 'publish artifact'
 
-    - task: SonarQubeAnalyze@5
+    - task: SonarQubeAnalyze@4
     
-    - task: SonarQubePublish@5
+    - task: SonarQubePublish@4
       inputs:
         pollingTimeoutSec: '300'
 
