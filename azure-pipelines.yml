@@ -8,9 +8,6 @@ pool:
   vmImage: ubuntu-latest
   name: default
 
-variables:
-  artifactVersion: ''  # Initialize the artifact version
-
 stages:
 - stage: Build
   displayName: 'Build Stage'
@@ -24,18 +21,10 @@ stages:
     - script: dotnet build
       displayName: 'Build the artifact'
 
-    - script: |
-        major_version=1
-        minor_version=0
-        new_version="$major_version.$minor_version.$(Build.BuildId)"
-        echo "New artifact version: $new_version"
-        echo "##vso[task.setvariable variable=artifactVersion;isOutput=true]$new_version"
-      displayName: 'Increment Version (Bash)'
-
-    - script: dotnet pack -p Version=$(artifactVersion)
+    - script: dotnet pack -p Version=1.0.$(Build.BuildId)
       displayName: 'Create NuGet Package'
 
-    - script: dotnet nuget push --source "hello_world" --api-key az $(System.DefaultWorkingDirectory)/bin/Release/ConsoleApp1.$(artifactVersion).nupkg
+    - script: dotnet nuget push --source "hello_world" --api-key az $(System.DefaultWorkingDirectory)/bin/Release/ConsoleApp1.1.0.$(Build.BuildId).nupkg
       displayName: 'Publish NuGet Package'
 
 - stage: SonarQubeScan
