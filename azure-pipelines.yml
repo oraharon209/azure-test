@@ -6,6 +6,7 @@ trigger:
 
 pool:
   vmImage: ubuntu-latest
+  name: default
 
 variables:
   artifactVersion: ''  # Initialize the artifact version
@@ -40,7 +41,6 @@ stages:
 - stage: SonarQubeScan
   displayName: 'SonarQube Scan Stage'
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/feature'))  # Only run this stage for the main branch
-  dependsOn: Build
   jobs:
   - job: SonarQubeScanJob
     displayName: 'SonarQube Scan Job'
