@@ -15,24 +15,19 @@ steps:
 - script: dotnet build
   displayName: 'Build the artifact'
 
-
 - script: |
-      major_version=1
-      minor_version=0
-      build_number=$(Build.BuildNumber)
-      # Remove the date from the build number (assuming YYYYMMDD format)
-      build_number_without_date=${build_number:0:5}${build_number:7}  # Extract first 5 and last 2 digits
-      new_version="$major_version.$minor_version.$build_number_without_date"
-      echo "New artifact version: $new_version"
-      artifactVersion="$new_version"
-    displayName: 'Increment Version (Bash)'
+    major_version=1
+    minor_version=0
+    build_number=$(Build.BuildNumber)
+    # Remove the date from the build number (assuming YYYYMMDD format)
+    build_number_without_date=${build_number:0:5}${build_number:7}  # Extract first 5 and last 2 digits
+    new_version="$major_version.$minor_version.$build_number_without_date"
+    echo "New artifact version: $new_version"
+    artifactVersion="$new_version"
+  displayName: 'Increment Version (Bash)'
 
-- script: dotnet pack -p Version=1.0.$(Build.BuildNumber)
+- script: dotnet pack -p Version=$artifactVersion
   displayName: 'Create NuGet Package'
 
 - script: dotnet nuget push --source "hello_world" --api-key az /home/or/azure_devops/azure-test/bin/Release/ConsoleApp1.$artifactVersion.nupkg
   displayName: 'publish NuGet Package'
-#- publish: $(Build.ArtifactStagingDirectory)/bin/Release/*.nupkg
-#  displayName: 'Publish NuGet Package'
-#  artifact: hello_world  # Replace with your feed name
-#  condition: always()
