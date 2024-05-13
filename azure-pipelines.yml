@@ -18,8 +18,8 @@ steps:
     projectKey: 'firstproj_firstproj_538b5c36-e25a-4d40-af2a-589005a19f5c'
 
 # Dotnet build task
-- task: DotNetCoreCLI@2
-  displayName: 'dotnet build'
+- task: DotNetCoreCLI@0
+  displayName: 'dotnet pack'
 
 - task: SonarQubeAnalyze@5
 
