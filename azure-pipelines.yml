@@ -11,13 +11,12 @@ steps:
   inputs:
     SonarQube: 'SonarQube Localhost'
     scannerMode: 'MSBuild'
-    projectKey: 'firstproj_firstproj_538b5c36-e25a-4d40-af2a-589005a19f5c''
+    projectKey: 'firstproj_firstproj_538b5c36-e25a-4d40-af2a-589005a19f5c'
 
 # Dotnet build task
 - task: DotNetCoreCLI@2
-  displayName: 'dotnet build' 
-  
-# Run Code Analysis task
+  displayName: 'dotnet build'
+
 - task: SonarQubeAnalyze@5
 
 # Publish Quality Gate Result task
