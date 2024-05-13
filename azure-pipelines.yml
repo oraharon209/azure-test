@@ -3,11 +3,8 @@ trigger:
 - feature/*
 
 steps:
- # Checkout the repository 
+# Checkout the repository 
 - checkout: self
-
- # Disable shallow fetch
-   fetchDepth: 0
 
 # Prepare Analysis Configuration task
 - task: SonarQubePrepare@5
