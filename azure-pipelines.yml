@@ -12,21 +12,22 @@ steps:
 - checkout: self
   clean: true
 
-- script: |  # Set NuGet version before building
+- script: |  # Combine setting version and potentially removing date
     major_version=1
     minor_version=0
     build_number=$(Build.BuildNumber)
-    new_version="$major_version.$minor_version.$build_number"
-    dotnet pack --configuration Release -p:ContinuousIntegrationBuild=true -p:Version=$new_version
-  displayName: 'Set NuGet Version and Build'
 
-- script: |
     # Remove the date from the build number (assuming YYYYMMDD format, optional)
     build_number_without_date=${build_number:0:5}${build_number:7}  # Extract first 5 and last 2 digits
-    new_version="$major_version.$minor_version.$build_number_without_date"
+
+    # Use the desired version format (including build number)
+    new_version="$major_version.$minor_version.$build_number"  # Use build_number_without_date if needed
     echo "New artifact version: $new_version"
-    artifactVersion="$new_version"  # Can be used for display purposes
-  displayName: 'Increment Version (Optional)'  # Optional step
+    artifactVersion="$new_version"
+
+    # Set NuGet version and build the project
+    dotnet pack --configuration Release -p:ContinuousIntegrationBuild=true -p:Version=$new_version
+  displayName: 'Set NuGet Version, Remove Date (Optional), and Build'
 
 - script: dotnet nuget push --source "hello_world" --api-key az /home/or/azure-devops/azure-test/bin/Release/ConsoleApp1.$artifactVersion.nupkg
   displayName: 'publish NuGet Package'
