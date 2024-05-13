@@ -1,5 +1,9 @@
 trigger:
-- main
+  - main  # Trigger on pushes to the main branch
+
+  # Add a new trigger for the branch you want to scan with SonarQube
+  - branches:
+    - feature/*  # This will trigger on any branch starting with "feature/"
 
 pool:
   vmImage: ubuntu-latest
@@ -8,23 +12,48 @@ pool:
 variables:
   artifactVersion: ''
 
-steps:
-- checkout: self
-  clean: true
+stages:
+- stage: Build  # Existing build stage
 
-- script: dotnet build
-  displayName: 'Build the artifact'
+  steps:
+  - checkout: self
+    clean: true
 
-- script: |
-    major_version=1
-    minor_version=0
-    new_version="$major_version.$minor_version.$(Build.BuildId)"
-    echo "New artifact version: $new_version"
-    artifactVersion="$new_version"
-  displayName: 'Increment Version (Bash)'
+  - script: dotnet build
+    displayName: 'Build the artifact'
 
-- script: dotnet pack -p Version=$artifactVersion
-  displayName: 'Create NuGet Package'
+  - script: |
+      major_version=1
+      minor_version=0
+      new_version="$major_version.$minor_version.$(Build.BuildId)"
+      echo "New artifact version: $new_version"
+      artifactVersion="$new_version"
+    displayName: 'Increment Version (Bash)'
 
-- script: dotnet nuget push --source "hello_world" --api-key az $(System.DefaultWorkingDirectory)/bin/Release/ConsoleApp1.1.0.$(Build.BuildId).nupkg
-  displayName: 'publish NuGet Package'
+  - script: dotnet pack -p Version=$artifactVersion
+    displayName: 'Create NuGet Package'
+
+  - script: dotnet nuget push --source "hello_world" --api-key az $(System.DefaultWorkingDirectory)/bin/Release/ConsoleApp1.$artifactVersion.nupkg
+    displayName: 'publish NuGet Package'
+
+- stage: SonarQubeScan  # New stage for SonarQube scan (conditional)
+
+  # Only run this stage if the triggered branch matches the pattern and 'isSonarQubeScan' is true
+  condition: contains(variables.branches, 'feature/*')
+
+  steps:
+  - script: |  # Install SonarQube scanner (example)
+      wget https://binaries.sonarsource.com/sonar-scanner-cli/latest/linux-x86-64/sonar-scanner-cli-latest-linux.zip
+      unzip sonar-scanner-cli-latest-linux.zip
+      chmod +x sonar-scanner-cli
+
+  - script: |  # Run SonarQube scan (example)
+      ./sonar-scanner-cli \
+        -Dsonar.projectKey=your_project_key \
+        -Dsonar.projectName=your_project_name \
+        -Dsonar.sources=./src \
+        -Dsonar.host.url=http://your_sonarqube_server_url \
+        -Dsonar.login=your_sonarqube_username \
+        -Dsonar.password=your_sonarqube_password
+
+  # Add additional steps for SonarQube analysis and reporting as needed
