@@ -1,6 +1,3 @@
-trigger:
-- main
-
 pool:
   vmImage: ubuntu-latest
   name: default
@@ -8,11 +5,8 @@ pool:
 stages:
 - stage: build
   jobs:
-  - job: build
-    condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
-    
+  - job: Build   
     steps:
-
 
     - task: SonarQubePrepare@5
       inputs:
