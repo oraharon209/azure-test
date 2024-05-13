@@ -21,7 +21,7 @@ steps:
     build_number_without_date=${build_number:0:5}${build_number:7}  # Extract first 5 and last 2 digits
 
     # Use the desired version format (including build number)
-    new_version="$major_version.$minor_version.$build_number"  # Use build_number_without_date if needed
+    new_version="$major_version.$minor_version.$build_number_without_date"  # Use build_number_without_date if needed
     echo "New artifact version: $new_version"
     artifactVersion="$new_version"
 
