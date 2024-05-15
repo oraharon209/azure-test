@@ -17,12 +17,14 @@ stages:
     - script: nuget pack ConsoleApp1.nuspec -Version 1.0.$(Build.BuildId)
       displayName: 'build the artifact'
 
+    - script: dotnet nuget push --source "hello_world_sq" --api-key az $(System.DefaultWorkingDirectory)/hello_world_sq.1.0.$(Build.BuildId).nupkg
+      displayName: 'publish artifact'
+
     - task: SonarQubeAnalyze@5
     
     - task: SonarQubePublish@5
       inputs:
         pollingTimeoutSec: '300'
 
-    - script: dotnet nuget push --source "hello_world_sq" --api-key az $(System.DefaultWorkingDirectory)/hello_world_sq.1.0.$(Build.BuildId).nupkg
-      displayName: 'publish artifact'
+
 
