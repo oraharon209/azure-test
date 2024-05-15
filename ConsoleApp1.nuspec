@@ -9,7 +9,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>hello world</description>
     <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
-    <tags>master_1.0.0</tags>
+    <tags>$Tags$</tags>
   </metadata>
   <files>
     <file src="bin/Release/net8.0/*.dll" target="lib/net461" />
