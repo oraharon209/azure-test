@@ -14,15 +14,15 @@ stages:
         scannerMode: 'MSBuild'
         projectKey: 'firstproj_firstproj_538b5c36-e25a-4d40-af2a-589005a19f5c'
     
-    - script: dotnet pack -p Version=1.0.$(Build.BuildId)
+    - script: nuget pack ConsoleApp1.nuspec -Version 1.0.$(Build.BuildId)
       displayName: 'build the artifact'
-
-    - script: dotnet nuget push --source "hello_world" --api-key az $(System.DefaultWorkingDirectory)/bin/Release/ConsoleApp1.1.0.$(Build.BuildId).nupkg
-      displayName: 'publish artifact'
 
     - task: SonarQubeAnalyze@5
     
     - task: SonarQubePublish@5
       inputs:
         pollingTimeoutSec: '300'
+
+    - script: dotnet nuget push --source "hello_world_sq" --api-key az $(System.DefaultWorkingDirectory)/hello_world_sq.1.0.$(Build.BuildId).nupkg
+      displayName: 'publish artifact'
 
