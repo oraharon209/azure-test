@@ -5,7 +5,7 @@
     <version>1.0.0</version>
     <authors>ConsoleApp1</authors>
     <description>Package Description</description>
-    <repository type="git" commit="c6f5ab1e54ca56d801dd646cb9a1e01ce211aa23" />
+    <repository type="git" commit="05b5a9d784b923a3f05c73c39e9c9d968696abdd" />
     <dependencies>
       <group targetFramework="net8.0" />
     </dependencies>

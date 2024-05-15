@@ -24,8 +24,10 @@ stages:
       inputs:
         pollingTimeoutSec: '300'
 
-    - script: nuget pack ConsoleApp1.nuspec -Version 1.0.$(Build.BuildId)
-      displayName: 'Build the Nuget dll pack'
+    - script: |
+        sed -i 's/\$Tags\$/master_1.0.$(Build.BuildId)/g' ConsoleApp1.nuspec
+        nuget pack ConsoleApp1.nuspec -Version 1.0.$(Build.BuildId)
+      displayName: 'Modify and pack NuGet package'
 
     - script: dotnet nuget push --source "hello_world_sq" --api-key az $(System.DefaultWorkingDirectory)/hello_world_sq.1.0.$(Build.BuildId).nupkg
       displayName: 'Publish Nuget package'
