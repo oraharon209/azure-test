@@ -18,9 +18,6 @@ stages:
     - script: dotnet pack -p Version=1.0.$(Build.BuildId)
       displayName: 'Build the artifact'
 
-    - script: dotnet nuget push --source "hello_world" --api-key az $(System.DefaultWorkingDirectory)/bin/Release/*.nupkg
-      displayName: 'Publish artifact'
-
     - task: SonarQubeAnalyze@5
     
     - task: SonarQubePublish@5
