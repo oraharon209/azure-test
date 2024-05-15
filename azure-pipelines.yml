@@ -15,11 +15,11 @@ stages:
         projectKey: 'firstproj_firstproj_0f6dc6e0-75a3-4cde-b52e-3ebfde4cd9d8'
         projectName: 'hello_world'
     
-    - script: nuget pack ConsoleApp1.nuspec -Version 1.0.$(Build.BuildId)
-      displayName: 'build the artifact'
+    - script: dotnet pack -p Version=1.0.$(Build.BuildId)
+      displayName: 'Build the artifact'
 
-    - script: dotnet nuget push --source "hello_world_sq" --api-key az $(System.DefaultWorkingDirectory)/hello_world_sq.1.0.$(Build.BuildId).nupkg
-      displayName: 'publish artifact'
+    - script: dotnet nuget push --source "hello_world" --api-key az $(System.DefaultWorkingDirectory)/bin/Release/*.nupkg
+      displayName: 'Publish artifact'
 
     - task: SonarQubeAnalyze@5
     
@@ -27,5 +27,9 @@ stages:
       inputs:
         pollingTimeoutSec: '300'
 
+    - script: nuget pack ConsoleApp1.nuspec -Version 1.0.$(Build.BuildId)
+      displayName: 'Build the Nuget dll pack'
 
+    - script: dotnet nuget push --source "hello_world_sq" --api-key az $(System.DefaultWorkingDirectory)/hello_world_sq.1.0.$(Build.BuildId).nupkg
+      displayName: 'Publish Nuget package'
 
