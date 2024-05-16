@@ -8,6 +8,9 @@ stages:
   - job: Build   
     steps:
 
+    - checkout: self
+      clean: true
+
     - task: SonarQubePrepare@5
       inputs:
         SonarQube: 'hello_world_sq'
@@ -15,7 +18,7 @@ stages:
         projectKey: 'firstproj_firstproj_0f6dc6e0-75a3-4cde-b52e-3ebfde4cd9d8'
         projectName: 'hello_world'
     
-    - script: dotnet pack -p Version=1.0.$(Build.BuildId)
+    - script: dotnet build
       displayName: 'Build the artifact'
 
     - task: SonarQubeAnalyze@5
